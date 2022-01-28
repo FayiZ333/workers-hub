@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -103,14 +104,6 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':5432
     },
-    'emp2_db':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'db3',
-        'USER':'fz',
-        'PASSWORD':'hesoyam',
-        'HOST':'localhost',
-        'PORT':5432
-    },
 }
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
@@ -163,5 +156,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 DATABASE_ROUTERS = [
     'routers.db_routers.EmpRouter',
-    'routers.db_routers.Emp2Router'
 ]
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR,'assets')

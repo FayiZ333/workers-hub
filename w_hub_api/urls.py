@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 from users.views import CustomView
 from rest_framework import routers
+from django.conf.urls.static import static
+
 
 route = routers.DefaultRouter()
 route.register('', CustomView, basename='Customview')
@@ -27,7 +30,7 @@ urlpatterns = [
     path('api/', include(route.urls)),
     # path('api/users', include('users.urls.user_urls')),
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 

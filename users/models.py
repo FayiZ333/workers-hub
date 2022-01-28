@@ -45,7 +45,7 @@ class Custom(AbstractBaseUser):
     email               = models.EmailField(verbose_name="email", max_length=60, unique=True)
     first_name          = models.CharField(max_length=33, unique=True)
     last_name           = models.CharField(max_length=33, unique=True)
-    phone               = models.IntegerField(max_length=15)
+    phone               = models.IntegerField()
     address             = models.TextField(max_length=333,null=True)
     date_joined         = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login          = models.DateTimeField(verbose_name='last login',auto_now=True)
