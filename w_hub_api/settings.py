@@ -42,20 +42,32 @@ INSTALLED_APPS = [
     ###################
     'corsheaders',
     'rest_framework',
-    'users.apps.UsersConfig',
-    'employee.apps.EmployeeConfig',
-    'db3.apps.Db3Config',
+    'rest_framework_simplejwt',
+    'user.apps.UserConfig',
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#             'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-# }
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+AUTH_USER_MODEL = 'user.User'
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -96,15 +108,22 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'emp_db':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'db1',
-        'USER':'fz',
-        'PASSWORD':'hesoyam',
-        'HOST':'localhost',
-        'PORT':5432
-    },
+    # 'emp_db':{
+    #     'ENGINE':'django.db.backends.postgresql',
+    #     'NAME':'db1',
+    #     'USER':'fz',
+    #     'PASSWORD':'hesoyam',
+    #     'HOST':'localhost',
+    #     'PORT':5432
+    # },
 }
+
+
+# DATABASE_ROUTERS = [
+#     'routers.db_routers.EmpRouter',
+# ]
+
+
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
@@ -153,10 +172,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-
-DATABASE_ROUTERS = [
-    'routers.db_routers.EmpRouter',
-]
 
 
 STATIC_URL = '/static/'
