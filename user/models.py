@@ -39,10 +39,10 @@ class myaccount(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    first_name          = models.CharField(max_length=333, unique=True)
-    last_name           = models.CharField(max_length=333, unique=True)
+    first_name          = models.CharField(max_length=333)
+    last_name           = models.CharField(max_length=333)
     email               = models.CharField(max_length=333, unique=True)
-    phone               = models.IntegerField(null=True, blank=True)
+    phone               = models.BigIntegerField(null=True, blank=True)
     address             = models.TextField(max_length=333,null=True)
     password            = models.CharField(max_length=333)
     date_joined         = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
@@ -59,10 +59,28 @@ class User(AbstractBaseUser):
     objects = myaccount()
 
     def __str__(self):
-        return self.email 
+        return self.email
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
     def has_module_perms(self, app_Label):
         return True
+
+
+class Emp(models.Model):
+    user                = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    image               = models.ImageField(upload_to='emp')
+    skill1              = models.CharField(max_length=333)
+    skill2              = models.CharField(max_length=333, null=True, blank=True)
+    skill3              = models.CharField(max_length=333, null=True, blank=True)
+    city                = models.CharField(max_length=333)
+    description         = models.TextField(max_length=333, null=True, blank=True)
+    subscription        = models.CharField(max_length=333)
+    date_joined         = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
+    last_login          = models.DateTimeField(verbose_name='last login', auto_now=True)
+    is_worker           = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.email
