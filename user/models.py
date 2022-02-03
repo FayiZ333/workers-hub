@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -68,9 +69,13 @@ class User(AbstractBaseUser):
         return True
 
 
+def upload_to(instance, filename):
+    return 'emp/{filename}'.format(filename=filename)
+
+
 class Emp(models.Model):
     user                = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
-    image               = models.ImageField(upload_to='emp')
+    image               = models.ImageField(_("Image"), upload_to = upload_to)
     skill1              = models.CharField(max_length=333)
     skill2              = models.CharField(max_length=333, null=True, blank=True)
     skill3              = models.CharField(max_length=333, null=True, blank=True)

@@ -23,7 +23,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from user.views import UserView, EmpView
+from user.views import UserView, EmpView, EmpIdView
 
 from rest_framework import routers
 
@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('api/', include(route.urls)),
     path('emp/', include(route2.urls)),
+    path('idemp/', EmpIdView.as_view(), name='idemp'),
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
