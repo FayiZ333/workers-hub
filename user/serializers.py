@@ -21,4 +21,4 @@ class EmpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Emp
-        fields = [ 'id','user', 'city', 'description', 'subscription', 'skill', 'image']
+        fields = [ 'id', 'city', 'description', 'subscription', 'skill', 'image']

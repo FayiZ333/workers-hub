@@ -15,8 +15,13 @@ class UserView(viewsets.ModelViewSet):
 
 
 class EmpView(viewsets.ModelViewSet):
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = Emp.objects.all()
     serializer_class = EmpSerializer
+
+    def get_user(self, request):
+        user = request.user
+        print(user)
 
 
 class EmpIdView(APIView):
@@ -24,11 +29,12 @@ class EmpIdView(APIView):
     parser_class = [MultiPartParser, FormParser]
 
     def post(self, request, format=None):
-        print(request.data)
+
         serializer = EmpSerializer(data=request.data)
+
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
