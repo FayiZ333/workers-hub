@@ -18,6 +18,7 @@ class EmpView(viewsets.ModelViewSet):
     queryset = Emp.objects.all()
     serializer_class = EmpSerializer
 
+
 class EmpIdView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     parser_class = [MultiPartParser, FormParser]
@@ -30,5 +31,4 @@ class EmpIdView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
-
 

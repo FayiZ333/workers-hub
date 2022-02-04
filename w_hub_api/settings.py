@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 ]
 
 
-
 from datetime import timedelta
 
 SIMPLE_JWT = {
@@ -104,7 +103,13 @@ WSGI_APPLICATION = 'w_hub_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
     'default': {
         'ENGINE': config('ENGINE'),
         'NAME': config('DB_NAME'),
@@ -115,19 +120,17 @@ DATABASES = {
     }
 }
 
-
 # DATABASE_ROUTERS = [
 #     'routers.db_routers.EmpRouter',
 # ]
 
 
-
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
-
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -156,7 +159,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -168,7 +170,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 
 STATIC_URL = '/static/'

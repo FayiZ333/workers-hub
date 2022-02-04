@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from django.contrib.postgres.fields import JSONField
 
 # Create your models here.
 
@@ -36,7 +37,6 @@ class myaccount(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
 
 
 class User(AbstractBaseUser):
@@ -76,16 +76,14 @@ def upload_to(instance, filename):
 class Emp(models.Model):
     user                = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     image               = models.ImageField(_("Image"), upload_to = upload_to)
-    skill1              = models.CharField(max_length=333)
-    skill2              = models.CharField(max_length=333, null=True, blank=True)
-    skill3              = models.CharField(max_length=333, null=True, blank=True)
     city                = models.CharField(max_length=333)
+    skill               = models.JSONField()
     description         = models.TextField(max_length=333, null=True, blank=True)
     subscription        = models.CharField(max_length=333)
     date_joined         = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login          = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_worker           = models.BooleanField(default=False)
 
-
     def __str__(self):
         return self.email
+
