@@ -23,7 +23,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from user.views import UserView, EmpView, EmpIdView
+from user.views import UserView, EmpView
+from request.views import Form1View
 
 from rest_framework import routers
 
@@ -33,13 +34,20 @@ route.register('', UserView, basename='UserView')
 route2 = routers.DefaultRouter()
 route2.register('', EmpView, basename='EmpView')
 
+route3 = routers.DefaultRouter()
+route3.register('', Form1View, basename='Form1View')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/', include(route.urls)),
-    path('emp/', include(route2.urls)),
-    path('idemp/', EmpIdView.as_view(), name='idemp'),
+    path('emp3/', include(route2.urls)),
+    path('form/', include(route3.urls)),
+
+    path('user/', include('user.urls.user_urls')),
+    path('emp/', include('user.urls.emp_urls')),
+    path('req/', include('request.urls.form_urls')),
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

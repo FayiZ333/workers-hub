@@ -2,6 +2,7 @@ from pyexpat import model
 from rest_framework import serializers
 from .models import User, Emp
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -22,3 +23,17 @@ class EmpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emp
         fields = [ 'id', 'city', 'description', 'subscription', 'skill', 'image']
+
+
+class ForgotSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        field = ['phone']
+
+
+
+# class ProfileSerializer(serializers.ModelSerializer):
+    
+#     class Meta:
+#         model = User
+#         fields = ('id','first_name','last_name','email', 'address', 'phone')

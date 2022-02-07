@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .serializers import UserSerializer,EmpSerializer
+from .serializers import ForgotSerializer, UserSerializer, EmpSerializer
 from rest_framework import viewsets, permissions, status
 from .models import User, Emp
 from rest_framework.views import APIView 
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+
 
 # Create your views here.
 
@@ -12,6 +13,16 @@ from rest_framework.parsers import MultiPartParser, FormParser
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class ProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    parser_class = [MultiPartParser, FormParser]
+    
+    def get(self, request):
+        user = User.objects.filter(email=request.user)
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
 
 
 class EmpView(viewsets.ModelViewSet):
@@ -38,3 +49,11 @@ class EmpIdView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ForgotView(APIView):
+    parser_class = [MultiPartParser, FormParser]
+
+    def post(self, request):
+
+        serializer = ForgotSerializer(data=request.data)
+        print(serializer)

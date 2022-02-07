@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import JSONField
 
+
 # Create your models here.
 
 
@@ -44,7 +45,7 @@ class User(AbstractBaseUser):
     first_name          = models.CharField(max_length=333)
     last_name           = models.CharField(max_length=333)
     email               = models.CharField(max_length=333, unique=True)
-    phone               = models.BigIntegerField(null=True, blank=True)
+    phone               = models.BigIntegerField()
     address             = models.TextField(max_length=333,null=True)
     password            = models.CharField(max_length=333)
     date_joined         = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
@@ -87,4 +88,3 @@ class Emp(models.Model):
 
     def __str__(self):
         return self.email
-
